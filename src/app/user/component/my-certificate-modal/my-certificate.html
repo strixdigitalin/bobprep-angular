@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h2 style="font-size: 2em" class="modal-title" translate>Your course cerificate</h2>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" *ngIf="stringDuration">
+  <div class="wrapper" id="my_certificate">
+    <div class="certificate text-center">
+      <h1 translate>Certificate of Completion</h1>
+      <div class="content">
+        <p>
+          <span translate>This is to certify that</span>
+          <span class="pink">&nbsp;{{userName}} &nbsp;</span>
+          <span translate>successfully completed </span><br />
+          <span translate> {{stringDuration}} of </span><span class="pink">{{myCourse?.name}}</span> <span translate
+            >online course on </span
+          >{{myCourse?.completedAt|date:'longDate'}}
+        </p>
+      </div>
+      <h2>{{myCourse?.course?.tutor?.name}}</h2>
+      <!-- <hr> -->
+      <h5>{{myCourse?.course?.tutor?.name}},<span translate> Instructor</span></h5>
+      <h6>&</h6>
+      <img src="{{appConfig?.siteLogo || 'assets/images/logo/bobprep-header-logo.png'}}" />
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button translate (click)="exportAsPDF('my_certificate')" class="btn btn-default mr-5">Save as PDF</button>
+</div>

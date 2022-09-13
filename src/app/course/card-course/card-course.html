@@ -1,0 +1,80 @@
+<div class="card h-100 box-shadow-md border-none">
+  <div class="badge-tag" *ngIf="course?.featured">
+    <span translate>Featured</span>
+  </div>
+  <a [routerLink]="['/courses/detail',course?.alias]" class="hyperlink">
+    <img
+      src="{{course?.mainImage?.fileUrl}}"
+      class="card-img-top"
+      alt=""
+      onerror="this.src='/assets/images/no-image.jpg'"
+  /></a>
+  <div class="card-body">
+    <div class="row mt-n5 row-cols-2">
+      <div class="col-md-7 pr-0">
+        <div class="profile-card">
+          <div class="profile">
+            <a class="hyperlink" [routerLink]="['/tutors', course?.tutor?.username]">
+              <img
+                src="{{course?.tutor?.avatarUrl}}"
+                class="float-left cate-profile box-shadow-lg"
+                alt=""
+                onerror="this.src='/assets/images/no-image.jpg'"
+              />
+              <h5 class="cate-profile-name pt-sm">{{course?.tutor?.name}}</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 pl-0">
+        <div class="rating-stars text-right rating-pt-md font-xs">
+          <ul id="stars">
+            <star-rating [rate]="course?.tutor?.ratingAvg"></star-rating>
+            <span>{{course?.tutor?.ratingAvg}} ({{course?.tutor?.totalRating}})</span>
+          </ul>
+        </div>
+        <div class="text-right" *ngIf="category">
+          <a
+            class="badge badge-default mt-2"
+            placement="bottom"
+            title="{{categories}}"
+            (click)="clickCategory(category._id)"
+            >{{category.name | ellipsis:14}}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="card-content mt-3">
+      <h5 class="card-title">{{course?.name | ellipsis:60}}</h5>
+      <div *ngIf="course?.description">
+        <app-text-ellipsis
+          [content]="course?.description"
+          [showChar]="50"
+          [path]="'/courses/detail'"
+          [param]="course?.alias"
+        ></app-text-ellipsis>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer bg-transparent border-text-mute p-3">
+    <div class="row row-cols-2">
+      <div class="col-md-8">
+        <!-- <a class="btn btn-green" [routerLink]="['/courses/detail',course?._id]" translate>Buy Now</a> -->
+        <a *ngIf="!course?.booked" class="btn btn-green" [routerLink]="['/courses/detail',course?.alias]" translate
+          >Buy Now</a
+        >
+        <a *ngIf="course?.booked" class="btn btn-purchased" [routerLink]="['/courses/detail',course?.alias]" translate
+          >Purchased</a
+        >
+      </div>
+      <div class="col-md-4 text-right">
+        <h4 class="color-light-red mt-2">
+          <strong
+            >{{ course?.price | currency : (config?.currencySymbol ? config?.currencySymbol + ' ' : '$ '): 'symbol' :
+            '1.0'}}</strong
+          >
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
